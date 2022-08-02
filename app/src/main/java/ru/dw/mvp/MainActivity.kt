@@ -19,13 +19,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
         with(binding) {
             btnNumberOne.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumberOne)
+                presenter.onCounterClick(ButtonCounter.btnOne)
             }
             btnNumberTwo.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumberTwo)
+                presenter.onCounterClick(ButtonCounter.btnTwo)
             }
             btnNumberThree.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumberThree)
+                presenter.onCounterClick(ButtonCounter.btnThree)
             }
         }
     }
