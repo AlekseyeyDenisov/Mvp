@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tvText1"
+        android:id="@+id/tvTextOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello"
@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNumber1"
+        android:id="@+id/btnNumberOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boom"/>
 
     <TextView
-        android:id="@+id/tvText2"
+        android:id="@+id/tvTexTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello"
@@ -35,12 +35,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNumber2"
+        android:id="@+id/btnNumberTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boom2"/>
     <TextView
-        android:id="@+id/tvText3"
+        android:id="@+id/tvTextThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNumber3"
+        android:id="@+id/btnNumberThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boom3"/>

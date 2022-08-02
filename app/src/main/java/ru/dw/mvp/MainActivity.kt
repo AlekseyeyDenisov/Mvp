@@ -18,14 +18,14 @@ class MainActivity : AppCompatActivity(), MainView {
         initPresenter()
 
         with(binding) {
-            btnNumber1.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber1)
+            btnNumberOne.setOnClickListener {
+                presenter.onCounterClick(R.id.btnNumberOne)
             }
-            btnNumber2.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber2)
+            btnNumberTwo.setOnClickListener {
+                presenter.onCounterClick(R.id.btnNumberTwo)
             }
-            btnNumber3.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber3)
+            btnNumberThree.setOnClickListener {
+                presenter.onCounterClick(R.id.btnNumberThree)
             }
         }
     }
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun setText(counter: String, position: Int) {
         with(binding) {
             when (position) {
-                0 -> tvText1.text = counter
-                1 -> tvText2.text = counter
-                2 -> tvText3.text = counter
+                0 -> tvTextOne.text = counter
+                1 -> tvTexTwo.text = counter
+                2 -> tvTextThree.text = counter
             }
         }
     }
