@@ -7,17 +7,17 @@ class CountersPresenter(
 
     fun onCounterClick(enum: ButtonCounter) {
         when (enum) {
-            ButtonCounter.btnOne -> {
-                val newValue = model.next(0)
-                view.setText(newValue.toString(), 0)
+            ButtonCounter.BtnOne -> {
+                val newValue = model.next( enum.position)
+                view.setText(newValue.toString(), enum.position)
             }
-            ButtonCounter.btnTwo-> {
-                val newValue = model.next(1)
-                view.setText(newValue.toString(), 1)
+            ButtonCounter.BtnTwo-> {
+                val newValue = model.next(enum.position)
+                view.setText(newValue.toString(), enum.position)
             }
-            ButtonCounter.btnThree -> {
-                val newValue = model.next(2)
-                view.setText(newValue.toString(), 2)
+            ButtonCounter.BtnThree -> {
+                val newValue = model.next(enum.position)
+                view.setText(newValue.toString(), enum.position)
             }
         }
     }

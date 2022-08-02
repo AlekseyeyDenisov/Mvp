@@ -19,13 +19,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
         with(binding) {
             btnNumberOne.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.btnOne)
+                presenter.onCounterClick(ButtonCounter.BtnOne)
             }
             btnNumberTwo.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.btnTwo)
+                presenter.onCounterClick(ButtonCounter.BtnTwo)
             }
             btnNumberThree.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.btnThree)
+                presenter.onCounterClick(ButtonCounter.BtnThree)
             }
         }
     }
@@ -34,13 +34,19 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter = CountersPresenter(this)
     }
 
-    override fun setText(counter: String, position: Int) {
+    override fun setText(counter: String, id: Int) {
         with(binding) {
-            when (position) {
-                0 -> tvTextOne.text = counter
-                1 -> tvTexTwo.text = counter
-                2 -> tvTextThree.text = counter
+            when (id) {
+                POSITION_UNE -> tvTextOne.text = counter
+                POSITION_TWO -> tvTexTwo.text = counter
+                POSITION_THREE -> tvTextThree.text = counter
             }
         }
+    }
+
+    companion object {
+        const val POSITION_UNE = 0
+        const val POSITION_TWO = 1
+        const val POSITION_THREE = 2
     }
 }

@@ -2,15 +2,10 @@ package ru.dw.mvp
 
 class CountersModel {
 
-    private val counters = mutableListOf(0, 0, 0)
-
-    fun getCurrent(position: Int): Int {
-        return counters[position]
-    }
+    private val counters = IntArray(ButtonCounter.values().size)
 
     fun next(position: Int): Int {
-        val newResult = counters[position]++
-        return newResult
+        return counters[position]++
     }
 
     fun set(position: Int, value: Int) {
