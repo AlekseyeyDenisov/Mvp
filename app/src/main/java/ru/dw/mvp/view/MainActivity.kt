@@ -1,7 +1,8 @@
-package ru.dw.mvp
+package ru.dw.mvp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.dw.mvp.presenter.CountersPresenter
 import ru.dw.mvp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainView {
