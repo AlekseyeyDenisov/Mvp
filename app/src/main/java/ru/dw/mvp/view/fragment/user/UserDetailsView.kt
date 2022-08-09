@@ -6,4 +6,4 @@ import moxy.viewstate.strategy.StateStrategyType
 import ru.dw.mvp.model.GithubUser
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UserView: MvpView
+interface UserDetailsView: MvpView

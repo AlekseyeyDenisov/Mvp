@@ -1,7 +1,6 @@
 package ru.dw.mvp.view.fragment.users
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import ru.dw.mvp.MyApp
 import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.FragmentUsersListBinding
 import ru.dw.mvp.model.GithubUser
-import ru.dw.mvp.presenter.UserPresenter
+import ru.dw.mvp.presenter.UsersPresenter
 import ru.dw.mvp.repository.GitHubRepositoryImpl
 import ru.dw.mvp.view.recycler.OnItemClickListener
 import ru.dw.mvp.view.recycler.UserAdapter
@@ -30,8 +29,8 @@ class UsersFragment :
 
     }
 
-    private val presenter: UserPresenter by moxyPresenter {
-        UserPresenter(
+    private val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(
             GitHubRepositoryImpl(),
             MyApp.instance.router
         )
@@ -76,6 +75,7 @@ class UsersFragment :
 
     override fun onBackPressed() = presenter.onBackPressed()
     override fun onItemClick(githubUser: GithubUser) {
-        Log.d("@@@", "onItemClick: ${githubUser.login}")
+        presenter.showDetails(githubUser)
+
     }
 }

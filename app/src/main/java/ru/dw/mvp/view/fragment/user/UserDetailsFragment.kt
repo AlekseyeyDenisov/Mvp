@@ -1,22 +1,34 @@
 package ru.dw.mvp.view.fragment.user
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import moxy.MvpAppCompatFragment
 import moxy.MvpView
-import ru.dw.mvp.R
+import moxy.ktx.moxyPresenter
+import ru.dw.mvp.MyApp
+import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.FragmentUserDetailsBinding
-import ru.dw.mvp.databinding.FragmentUsersListBinding
 import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.presenter.UserDetailsPresenter
 
 
-class UserDetailsFragment : Fragment(), MvpView {
+class UserDetailsFragment :
+    MvpAppCompatFragment(),
+    MvpView,
+    OnBackPressedListener {
 
     private var _binding: FragmentUserDetailsBinding? = null
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentUserDetailsBinding = null ")
+
+    private val presenter: UserDetailsPresenter by moxyPresenter {
+        UserDetailsPresenter(
+            MyApp.instance.router
+        )
+    }
 
 
     override fun onCreateView(
@@ -29,7 +41,8 @@ class UserDetailsFragment : Fragment(), MvpView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val githubUser = arguments?.getParcelable<GithubUser>(BUNDLE_KEY)
+        val githubUser = arguments?.getParcelable<GithubUser>(BUNDLE_DETAILS)
+
         render(githubUser)
     }
 
@@ -40,19 +53,19 @@ class UserDetailsFragment : Fragment(), MvpView {
     }
 
     companion object {
-        private const val BUNDLE_KEY = "key_details_fragment"
-        fun bundleDetails(githubUser: GithubUser):Bundle {
+        private const val BUNDLE_DETAILS = "key_details_fragment"
+        private fun bundleDetails(githubUser: GithubUser): Bundle {
             return Bundle().apply {
-                putParcelable(BUNDLE_KEY,githubUser)
+                putParcelable(BUNDLE_DETAILS, githubUser)
             }
         }
 
         @JvmStatic
-        fun newInstance(bundle: Bundle) =
+        fun newInstance(githubUser: GithubUser) =
             UserDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    arguments = bundle
-                }
+                arguments = bundleDetails(githubUser)
             }
     }
+
+    override fun onBackPressed(): Boolean = presenter.onBackPressed()
 }

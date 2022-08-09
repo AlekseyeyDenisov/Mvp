@@ -10,7 +10,9 @@
         android:id="@+id/userLogin"
         android:gravity="center"
         android:layout_gravity="center"
+        android:textSize="@dimen/text_size_default"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:text="Empty"/>
 
 </FrameLayout>
