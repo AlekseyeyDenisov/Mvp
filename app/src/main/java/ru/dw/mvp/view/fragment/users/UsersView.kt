@@ -1,4 +1,4 @@
-package ru.dw.mvp.view.fragment
+package ru.dw.mvp.view.fragment.users
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

@@ -1,4 +1,4 @@
-package ru.dw.mvp.view.fragment
+package ru.dw.mvp.view.fragment.users
 
 import android.os.Bundle
 import android.view.LayoutInflater

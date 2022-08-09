@@ -3,7 +3,7 @@ package ru.dw.mvp.presenter
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.dw.mvp.model.GitHupRepository
-import ru.dw.mvp.view.fragment.UsersView
+import ru.dw.mvp.view.fragment.users.UsersView
 
 class UserPresenter  (
     private val repository: GitHupRepository,
