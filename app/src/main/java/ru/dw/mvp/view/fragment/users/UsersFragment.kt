@@ -1,6 +1,7 @@
 package ru.dw.mvp.view.fragment.users
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,15 @@ import ru.dw.mvp.databinding.FragmentUsersListBinding
 import ru.dw.mvp.model.GithubUser
 import ru.dw.mvp.presenter.UserPresenter
 import ru.dw.mvp.repository.GitHubRepositoryImpl
+import ru.dw.mvp.view.recycler.OnItemClickListener
 import ru.dw.mvp.view.recycler.UserAdapter
 
 
-class UsersFragment : MvpAppCompatFragment(), UsersView, OnBackPressedListener {
+class UsersFragment :
+    MvpAppCompatFragment(),
+    UsersView,
+    OnBackPressedListener,
+    OnItemClickListener {
 
     companion object {
         @JvmStatic
@@ -35,7 +41,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, OnBackPressedListener {
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentUsersListBinding = null ")
 
-    private val userAdapter = UserAdapter()
+    private val userAdapter = UserAdapter(this)
 
 
     override fun onCreateView(
@@ -69,4 +75,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, OnBackPressedListener {
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
+    override fun onItemClick(githubUser: GithubUser) {
+        Log.d("@@@", "onItemClick: ${githubUser.login}")
+    }
 }
