@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter = CountersPresenter(this)
     }
 
-    override fun setText(counter: String, id: Int) {
+    override fun setText(counter: String, value: Int) {
         with(binding) {
-            when (id) {
+            when (value) {
                 POSITION_UNE -> tvTextOne.text = counter
                 POSITION_TWO -> tvTexTwo.text = counter
                 POSITION_THREE -> tvTextThree.text = counter

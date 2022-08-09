@@ -8,7 +8,7 @@ class CountersModel {
         return counters[position]++
     }
 
-    fun set(position: Int, value: Int) {
-        counters[position] = value
-    }
+//    fun set(position: Int, value: Int) {
+//        counters[position] = value
+//    }
 }
