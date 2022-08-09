@@ -6,6 +6,6 @@ import moxy.viewstate.strategy.StateStrategyType
 import ru.dw.mvp.model.GithubUser
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UserView: MvpView {
+interface UsersView: MvpView {
     fun initList(list:List<GithubUser>)
 }

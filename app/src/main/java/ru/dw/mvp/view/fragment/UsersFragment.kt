@@ -16,7 +16,7 @@ import ru.dw.mvp.repository.GitHubRepositoryImpl
 import ru.dw.mvp.view.recycler.UserAdapter
 
 
-class UsersFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
+class UsersFragment : MvpAppCompatFragment(), UsersView, OnBackPressedListener {
 
     companion object {
         @JvmStatic
