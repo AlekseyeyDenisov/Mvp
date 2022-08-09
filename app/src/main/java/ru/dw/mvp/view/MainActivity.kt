@@ -1,43 +1,47 @@
 package ru.dw.mvp.view
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import ru.dw.mvp.MyApp
+import ru.dw.mvp.R
+import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.ActivityMainBinding
-import ru.dw.mvp.model.GithubUser
-import ru.dw.mvp.presenter.GitHubPresenter
-import ru.dw.mvp.repository.GitHubRepositoryImpl
-import ru.dw.mvp.view.recycler.UserAdapter
+import ru.dw.mvp.presenter.MainPresenter
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(),MainView {
 
+    private val navigator = AppNavigator(this, R.id.containerMain)
     private lateinit var binding: ActivityMainBinding
 
-    private val userAdapter = UserAdapter()
-
-    private val presenter by moxyPresenter {
-        GitHubPresenter(GitHubRepositoryImpl())
-    }
+    private val presenter by moxyPresenter { MainPresenter(MyApp.instance.router)  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initRecycler()
     }
 
-    private fun initRecycler() {
-        with(binding){
-            recyclerGitHubUser.layoutManager = LinearLayoutManager(this@MainActivity)
-            recyclerGitHubUser.adapter = userAdapter
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        MyApp.instance.navigationHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        MyApp.instance.navigationHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach { currentFragment->
+            if (currentFragment is OnBackPressedListener && currentFragment.onBackPressed()){
+                return
+            }
+
         }
-    }
-
-
-    override fun initList(list: List<GithubUser>) {
-        userAdapter.users = list
+        presenter.onBackPressed()
     }
 
 
