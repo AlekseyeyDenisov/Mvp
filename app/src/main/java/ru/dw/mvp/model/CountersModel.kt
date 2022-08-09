@@ -1,4 +1,6 @@
-package ru.dw.mvp
+package ru.dw.mvp.model
+
+import ru.dw.mvp.view.ButtonCounter
 
 class CountersModel {
 
