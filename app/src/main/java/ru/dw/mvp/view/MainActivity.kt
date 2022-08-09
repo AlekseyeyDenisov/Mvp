@@ -1,19 +1,23 @@
 package ru.dw.mvp.view
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import ru.dw.mvp.presenter.CountersPresenter
 import ru.dw.mvp.databinding.ActivityMainBinding
-import ru.dw.mvp.model.CountersModel
+import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.presenter.GitHubPresenter
+import ru.dw.mvp.repository.GitHubRepositoryImpl
+import ru.dw.mvp.view.recycler.UserAdapter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val userAdapter = UserAdapter()
+
     private val presenter by moxyPresenter {
-        CountersPresenter(CountersModel())
+        GitHubPresenter(GitHubRepositoryImpl())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,38 +25,20 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBottomClick()
+        initRecycler()
     }
 
-    private fun initBottomClick() {
-        with(binding) {
-            btnNumberOne.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnOne)
-            }
-            btnNumberTwo.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnTwo)
-            }
-            btnNumberThree.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnThree)
-            }
+    private fun initRecycler() {
+        with(binding){
+            recyclerGitHubUser.layoutManager = LinearLayoutManager(this@MainActivity)
+            recyclerGitHubUser.adapter = userAdapter
         }
     }
 
-    companion object {
-        const val POSITION_UNE = 0
-        const val POSITION_TWO = 1
-        const val POSITION_THREE = 2
+
+    override fun initList(list: List<GithubUser>) {
+        userAdapter.users = list
     }
 
-    override fun serCounterOneText(counter: String, value: Int) {
-        binding.tvTextOne.text = counter
-    }
 
-    override fun serCounterTwoText(counter: String, value: Int) {
-        binding.tvTexTwo.text = counter
-    }
-
-    override fun serCounterThreeText(counter: String, value: Int) {
-        binding.tvTextThree.text = counter
-    }
 }
