@@ -1,8 +1,9 @@
-package ru.dw.mvp.view
+package ru.dw.mvp.view.fragment.user
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import ru.dw.mvp.model.GithubUser
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface MainView : MvpView
+interface UserDetailsView: MvpView
