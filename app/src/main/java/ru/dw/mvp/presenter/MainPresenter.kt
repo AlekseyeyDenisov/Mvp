@@ -12,7 +12,7 @@ class MainPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.navigateTo(UsersScreen)
+        router.replaceScreen(UsersScreen)
     }
 
     fun onBackPressed():Boolean {
