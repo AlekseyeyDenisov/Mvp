@@ -1,58 +1,48 @@
 package ru.dw.mvp.view
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import ru.dw.mvp.presenter.CountersPresenter
+import ru.dw.mvp.MyApp
+import ru.dw.mvp.R
+import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.ActivityMainBinding
-import ru.dw.mvp.model.CountersModel
+import ru.dw.mvp.presenter.MainPresenter
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(),MainView {
 
+    private val navigator = AppNavigator(this, R.id.containerMain)
     private lateinit var binding: ActivityMainBinding
 
-    private val presenter by moxyPresenter {
-        CountersPresenter(CountersModel())
-    }
+    private val presenter by moxyPresenter { MainPresenter(MyApp.instance.router)  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBottomClick()
     }
 
-    private fun initBottomClick() {
-        with(binding) {
-            btnNumberOne.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnOne)
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        MyApp.instance.navigationHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        MyApp.instance.navigationHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach { currentFragment->
+            if (currentFragment is OnBackPressedListener && currentFragment.onBackPressed()){
+                return
             }
-            btnNumberTwo.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnTwo)
-            }
-            btnNumberThree.setOnClickListener {
-                presenter.onCounterClick(ButtonCounter.BtnThree)
-            }
+
         }
+        presenter.onBackPressed()
     }
 
-    companion object {
-        const val POSITION_UNE = 0
-        const val POSITION_TWO = 1
-        const val POSITION_THREE = 2
-    }
 
-    override fun serCounterOneText(counter: String, value: Int) {
-        binding.tvTextOne.text = counter
-    }
-
-    override fun serCounterTwoText(counter: String, value: Int) {
-        binding.tvTexTwo.text = counter
-    }
-
-    override fun serCounterThreeText(counter: String, value: Int) {
-        binding.tvTextThree.text = counter
-    }
 }
