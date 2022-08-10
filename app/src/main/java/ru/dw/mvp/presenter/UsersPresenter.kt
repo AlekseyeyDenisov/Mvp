@@ -2,6 +2,7 @@ package ru.dw.mvp.presenter
 
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.dw.mvp.core.nav.UserDetailsScreen
@@ -19,11 +20,9 @@ class UsersPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.showLoading()
         repository.getUser()
-            .subscribeOn(Schedulers.io())
             .delay(2, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeByDefault()
             .subscribe(
                 {
                     viewState.initList(it)
@@ -31,8 +30,13 @@ class UsersPresenter(
                 },
                 { }
             )
+        viewState.showLoading()
+    }
 
-
+    fun <T> Single<T>.subscribeByDefault():Single<T>{
+        return this
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun onBackPressed(): Boolean {
