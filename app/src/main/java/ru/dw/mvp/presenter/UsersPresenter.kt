@@ -33,7 +33,7 @@ class UsersPresenter(
         viewState.showLoading()
     }
 
-    fun <T> Single<T>.subscribeByDefault():Single<T>{
+    private fun <T>Single<T>.subscribeByDefault():Single<T>{
         return this
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
