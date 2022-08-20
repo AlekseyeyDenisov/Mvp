@@ -6,24 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.MvpView
 import moxy.ktx.moxyPresenter
-import ru.dw.mvp.MyApp
-import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.FragmentImagePickerBinding
 import ru.dw.mvp.presenter.ImagePickerPresenter
-import ru.dw.mvp.presenter.UsersPresenter
-import ru.dw.mvp.repository.GitHubRepositoryImpl
 import ru.dw.mvp.repository.PickerRepositoryImpl
-import java.security.Permissions
 
 
 class ImagePickerFragment :

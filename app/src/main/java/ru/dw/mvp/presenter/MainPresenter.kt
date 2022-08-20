@@ -3,7 +3,6 @@ package ru.dw.mvp.presenter
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.dw.mvp.core.nav.ImagePickerScreen
-import ru.dw.mvp.core.nav.UsersScreen
 import ru.dw.mvp.view.MainView
 
 

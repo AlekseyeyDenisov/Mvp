@@ -1,7 +1,6 @@
 package ru.dw.mvp.repository
 
 import android.content.Context
-import android.net.Uri
 import ru.dw.mvp.MyApp
 import ru.dw.mvp.model.ImagePickerRepository
 import java.io.File
