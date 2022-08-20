@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import ru.dw.mvp.model.GithubUser
-import ru.dw.mvp.view.fragment.ImagePickerFragment
+import ru.dw.mvp.view.fragment.picker.ImagePickerFragment
 import ru.dw.mvp.view.fragment.user.UserDetailsFragment
 import ru.dw.mvp.view.fragment.users.UsersFragment
 

@@ -75,7 +75,7 @@ class UsersFragment :
     override fun hideLoading() {
         showProgressBar(false)
     }
-    fun showProgressBar(visibility:Boolean){
+    private fun showProgressBar(visibility:Boolean){
         binding.progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
     }
 
