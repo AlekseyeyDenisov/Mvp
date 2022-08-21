@@ -50,8 +50,10 @@ class ImagePickerFragment :
         ActivityResultContracts.GetContent()
     ) { imageUri: Uri? ->
         imageUri?.let {
-            binding.image.load(it)
-            presenter.getUrlImages(uriPath(getFilePath(requireContext(),it)))
+            showLoading()
+            presenter.getUrlImages(uriPath(getFilePath(requireContext(),it))) { file ->
+                binding.image.load(file)
+            }
 
         }
     }
@@ -108,10 +110,12 @@ class ImagePickerFragment :
     }
 
     override fun showLoading() {
+        binding.progressBarPicker.visibility = View.VISIBLE
 
     }
 
     override fun hideLoading() {
+        binding.progressBarPicker.visibility = View.GONE
 
     }
 
