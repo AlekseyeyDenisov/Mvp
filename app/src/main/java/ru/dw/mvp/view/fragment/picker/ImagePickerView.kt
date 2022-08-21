@@ -6,7 +6,6 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ImagePickerView : MvpView {
-    fun requestUrlImages(url: String)
     fun showLoading()
     fun hideLoading()
 

@@ -1,5 +1,7 @@
 package ru.dw.mvp.view.fragment.picker
 
+
+import android.app.AlertDialog
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
@@ -14,6 +16,7 @@ import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.MvpView
 import moxy.ktx.moxyPresenter
+import ru.dw.mvp.R
 import ru.dw.mvp.databinding.FragmentImagePickerBinding
 import ru.dw.mvp.presenter.ImagePickerPresenter
 import ru.dw.mvp.repository.PickerRepositoryImpl
@@ -49,15 +52,10 @@ class ImagePickerFragment :
     private val getContent = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { imageUri: Uri? ->
-        imageUri?.let {
-            showLoading()
-            presenter.getUrlImages(uriPath(getFilePath(requireContext(),it))) { file ->
-                binding.image.load(file)
-            }
-
+        imageUri?.let {uri->
+            dialogAlert(uri)
         }
     }
-
 
 
     override fun onCreateView(
@@ -105,9 +103,6 @@ class ImagePickerFragment :
         fun newInstance() = ImagePickerFragment()
     }
 
-    override fun requestUrlImages(url: String) {
-
-    }
 
     override fun showLoading() {
         binding.progressBarPicker.visibility = View.VISIBLE
@@ -117,6 +112,21 @@ class ImagePickerFragment :
     override fun hideLoading() {
         binding.progressBarPicker.visibility = View.GONE
 
+    }
+
+    private fun dialogAlert(uri:Uri){
+        AlertDialog.Builder(context)
+            .setMessage(getString(R.string.conversion_in_progress))
+            .setPositiveButton(
+                getString(R.string.Yes),
+            ) { dialog, _ ->
+                dialog.dismiss()
+                showLoading()
+                binding.image.load(uri)
+                presenter.getUrlImages(uriPath(getFilePath(requireContext(), uri)))
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
 
 

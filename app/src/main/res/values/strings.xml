@@ -8,4 +8,7 @@
     <string name="edit_message_hint">Type message</string>
     <string name="request_permissions">Request Permissions</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="conversion_in_progress">Выполняется конвертация?</string>
+    <string name="cancel">Отменить</string>
+    <string name="Yes">Да</string>
 </resources>

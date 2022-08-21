@@ -17,8 +17,8 @@ class ImagePickerPresenter(
         viewState.hideLoading()
     }
 
-    fun getUrlImages(imageUri: String, callback: (File) -> Unit) {
-        repository.saveCompletable(imageUri, callback)
+    fun getUrlImages(imageUri: String) {
+        repository.saveCompletable(imageUri)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
