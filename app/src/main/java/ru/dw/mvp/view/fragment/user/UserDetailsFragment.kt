@@ -52,6 +52,7 @@ class UserDetailsFragment :
     }
 
     companion object {
+
         private const val BUNDLE_DETAILS = "key_details_fragment"
         private fun bundleDetails(githubUser: GithubUser): Bundle {
             return Bundle().apply {

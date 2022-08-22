@@ -21,7 +21,6 @@ class UsersPresenter(
         super.onFirstViewAttach()
 
         repository.getUser()
-            .delay(2, TimeUnit.SECONDS)
             .subscribeByDefault()
             .subscribe(
                 {
@@ -44,9 +43,9 @@ class UsersPresenter(
         return true
     }
 
-    fun showDetails(githubUser: GithubUser?) {
-        val login = githubUser ?: GithubUser("empty")
-        router.navigateTo(UserDetailsScreen(login))
-    }
+//    fun showDetails(githubUser: GithubUser?) {
+//        val login = githubUser ?: GithubUser("empty")
+//        router.navigateTo(UserDetailsScreen(login))
+//    }
 
 }

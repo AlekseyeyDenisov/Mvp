@@ -9,19 +9,17 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.dw.mvp.MyApp
 import ru.dw.mvp.core.OnBackPressedListener
+import ru.dw.mvp.core.network.NetworkProvider
 import ru.dw.mvp.databinding.FragmentUsersListBinding
 import ru.dw.mvp.model.GithubUser
 import ru.dw.mvp.presenter.UsersPresenter
-import ru.dw.mvp.repository.GitHubRepositoryImpl
+import ru.dw.mvp.repository.GitHubRepositoryImplOld
+import ru.dw.mvp.repository.GithubRepositoryImpl
 import ru.dw.mvp.view.recycler.OnItemClickListener
 import ru.dw.mvp.view.recycler.UserAdapter
 
 
-class UsersFragment :
-    MvpAppCompatFragment(),
-    UsersView,
-    OnBackPressedListener,
-    OnItemClickListener {
+class UsersFragment :MvpAppCompatFragment(),UsersView,OnBackPressedListener, OnItemClickListener {
 
     companion object {
         @JvmStatic
@@ -31,7 +29,7 @@ class UsersFragment :
 
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GitHubRepositoryImpl(),
+            GithubRepositoryImpl(NetworkProvider.usersApi),
             MyApp.instance.router
         )
     }
@@ -86,7 +84,7 @@ class UsersFragment :
 
     override fun onBackPressed() = presenter.onBackPressed()
     override fun onItemClick(githubUser: GithubUser) {
-        presenter.showDetails(githubUser)
+        //presenter.showDetails(githubUser)
 
     }
 }
