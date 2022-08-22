@@ -1,7 +1,7 @@
 package ru.dw.mvp.model
 
-import ru.dw.mvp.model.GithubUser
+import io.reactivex.rxjava3.core.Single
 
 interface GitHupRepository {
-    fun getUser():List<GithubUser>
+    fun getUser(): Single<List<GithubUser>>
 }

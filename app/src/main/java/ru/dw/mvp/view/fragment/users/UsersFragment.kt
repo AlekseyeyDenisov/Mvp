@@ -68,6 +68,17 @@ class UsersFragment :
         userAdapter.users = list
     }
 
+    override fun showLoading() {
+        showProgressBar(true)
+    }
+
+    override fun hideLoading() {
+        showProgressBar(false)
+    }
+    private fun showProgressBar(visibility:Boolean){
+        binding.progressBar.visibility = if(visibility) View.VISIBLE else View.GONE
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

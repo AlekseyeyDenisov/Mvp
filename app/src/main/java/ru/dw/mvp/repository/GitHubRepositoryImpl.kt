@@ -1,9 +1,10 @@
 package ru.dw.mvp.repository
 
-import ru.dw.mvp.model.GithubUser
+import io.reactivex.rxjava3.core.Single
 import ru.dw.mvp.model.GitHupRepository
+import ru.dw.mvp.model.GithubUser
 
-class GitHubRepositoryImpl: GitHupRepository {
+class GitHubRepositoryImpl : GitHupRepository {
 
     private val repositories = listOf(
         GithubUser("MrFox"),
@@ -13,7 +14,9 @@ class GitHubRepositoryImpl: GitHupRepository {
     )
 
 
-    override fun getUser(): List<GithubUser> {
-        return repositories
+    override fun getUser(): Single<List<GithubUser>> {
+        return Single.create {
+            it.onSuccess(repositories)
+        }
     }
 }

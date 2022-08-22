@@ -10,12 +10,15 @@ import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.databinding.ActivityMainBinding
 import ru.dw.mvp.presenter.MainPresenter
 
+
 class MainActivity : MvpAppCompatActivity(),MainView {
 
     private val navigator = AppNavigator(this, R.id.containerMain)
     private lateinit var binding: ActivityMainBinding
 
     private val presenter by moxyPresenter { MainPresenter(MyApp.instance.router)  }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,4 +8,6 @@ import ru.dw.mvp.model.GithubUser
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface UsersView: MvpView {
     fun initList(list:List<GithubUser>)
+    fun showLoading()
+    fun hideLoading()
 }
