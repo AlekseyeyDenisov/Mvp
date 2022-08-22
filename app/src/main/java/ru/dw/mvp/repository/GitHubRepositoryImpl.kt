@@ -16,7 +16,7 @@ class GithubRepositoryImpl constructor(
             .map { it.map(UserMapper::mapToEntity) }
     }
 
-    override fun getUserById(login: String): Single<GithubUser> {
+    override fun getUserByLogin(login: String): Single<GithubUser> {
         return usersApi.getUser(login)
             .map(UserMapper::mapToEntity)
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragment.user.UserDetailsFragment">
+    tools:context=".view.fragment.user.DetailsFragment">
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -30,5 +30,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivUserAvatar"
         tools:text="Empty" />
+    <FrameLayout
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone">
+        <ProgressBar
+            android:layout_gravity="center"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

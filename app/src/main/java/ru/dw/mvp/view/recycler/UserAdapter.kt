@@ -24,7 +24,7 @@ class UserAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
         val binding = ItemUserBinding.inflate(
-            LayoutInflater.from(parent.context)
+            LayoutInflater.from(parent.context),parent,false
         )
             return GithubUserViewHolder(binding)
     }
