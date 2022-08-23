@@ -11,17 +11,17 @@ import ru.dw.mvp.MyApp
 import ru.dw.mvp.core.OnBackPressedListener
 import ru.dw.mvp.core.network.NetworkProvider
 import ru.dw.mvp.databinding.FragmentUsersListBinding
-import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.model.entity.GithubUser
 import ru.dw.mvp.presenter.UsersPresenter
 import ru.dw.mvp.repository.GithubRepositoryImpl
-import ru.dw.mvp.view.recycler.OnItemClickListener
-import ru.dw.mvp.view.recycler.UserAdapter
+import ru.dw.mvp.view.fragment.users.recycler.OnItemClickUserListener
+import ru.dw.mvp.view.fragment.users.recycler.UserAdapter
 
 
 class UsersFragment :MvpAppCompatFragment(),
     UsersView,
     OnBackPressedListener,
-    OnItemClickListener {
+    OnItemClickUserListener {
 
     companion object {
         @JvmStatic

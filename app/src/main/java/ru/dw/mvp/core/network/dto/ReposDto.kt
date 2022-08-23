@@ -1,16 +1,16 @@
-package ru.dw.mvp.core.network
+package ru.dw.mvp.core.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class UserDto (
+data class ReposDto (
     @Expose
     @SerializedName("id")
     val id: Long,
     @Expose
-    @SerializedName("login")
-    val login: String,
+    @SerializedName("name")
+    val name: String,
     @Expose
-    @SerializedName("avatar_url")
-    val avatarUrl: String
+    @SerializedName("forks_count")
+    val forksCount: Int
 )

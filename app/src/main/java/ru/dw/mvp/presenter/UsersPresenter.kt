@@ -6,7 +6,7 @@ import moxy.MvpPresenter
 import ru.dw.mvp.core.nav.UserDetailsScreen
 import ru.dw.mvp.core.utils.subscribeByDefault
 import ru.dw.mvp.model.GitHupRepository
-import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.model.entity.GithubUser
 import ru.dw.mvp.view.fragment.users.UsersView
 
 class UsersPresenter(

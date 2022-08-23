@@ -1,4 +1,4 @@
-package ru.dw.mvp.view.recycler
+package ru.dw.mvp.view.fragment.users.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.dw.mvp.R
 import ru.dw.mvp.databinding.ItemUserBinding
-import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.model.entity.GithubUser
 
 class UserAdapter(
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickUserListener: OnItemClickUserListener
 ) :
     RecyclerView.Adapter<UserAdapter.GithubUserViewHolder>() {
 
@@ -45,7 +45,7 @@ class UserAdapter(
                 placeholder(R.drawable.ic_user_placeholder)
             }
             root.setOnClickListener {
-                onItemClickListener.onItemClick(item)
+                onItemClickUserListener.onItemClick(item)
             }
         }
 

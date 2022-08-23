@@ -1,4 +1,4 @@
-package ru.dw.mvp.model
+package ru.dw.mvp.model.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

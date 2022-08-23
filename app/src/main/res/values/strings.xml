@@ -11,4 +11,5 @@
     <string name="conversion_in_progress">Выполняется конвертация?</string>
     <string name="cancel">Отменить</string>
     <string name="Yes">Да</string>
+    <string name="number_of_forks">Колличество форков</string>
 </resources>

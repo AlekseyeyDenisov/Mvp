@@ -6,7 +6,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.dw.mvp.model.ImagePickerRepository
 import ru.dw.mvp.view.fragment.picker.ImagePickerView
-import java.io.File
 
 class ImagePickerPresenter(
     private val repository: ImagePickerRepository
