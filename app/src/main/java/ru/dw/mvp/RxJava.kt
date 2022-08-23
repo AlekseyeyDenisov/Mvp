@@ -1,7 +1,6 @@
 package ru.dw.mvp
 
 
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.TestScheduler
 import java.util.*

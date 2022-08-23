@@ -1,16 +1,16 @@
-package ru.dw.mvp.view.recycler
+package ru.dw.mvp.view.fragment.users.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.dw.mvp.R
 import ru.dw.mvp.databinding.ItemUserBinding
-import ru.dw.mvp.model.GithubUser
+import ru.dw.mvp.model.entity.GithubUser
 
 class UserAdapter(
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickUserListener: OnItemClickUserListener
 ) :
     RecyclerView.Adapter<UserAdapter.GithubUserViewHolder>() {
 
@@ -23,8 +23,10 @@ class UserAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
-        return GithubUserViewHolder(view)
+        val binding = ItemUserBinding.inflate(
+            LayoutInflater.from(parent.context),parent,false
+        )
+            return GithubUserViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
@@ -33,20 +35,20 @@ class UserAdapter(
 
     override fun getItemCount(): Int = users.size
 
-   inner class GithubUserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class GithubUserViewHolder(private val binding: ItemUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(item:GithubUser) {
-            ItemUserBinding.bind(itemView).apply {
-                tvUserLogin.text = item.login
-                root.setOnClickListener {
-                    onItemClickListener.onItemClick(item)
-                }
+        fun bind(item: GithubUser) = with(binding) {
+            tvUserLogin.text = item.login
+            ivUserAvatar.load(item.avatarUrl){
+                placeholder(R.drawable.ic_user_placeholder)
             }
-
-
-
-
+            root.setOnClickListener {
+                onItemClickUserListener.onItemClick(item)
+            }
         }
+
+
     }
 }
