@@ -1,10 +1,10 @@
-package ru.dw.mvp.presenter
+package ru.dw.mvp.view.fragment.picker
 
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
-import ru.dw.mvp.model.ImagePickerRepository
+import ru.dw.mvp.repository.ImagePickerRepository
 import ru.dw.mvp.view.fragment.picker.ImagePickerView
 
 class ImagePickerPresenter(

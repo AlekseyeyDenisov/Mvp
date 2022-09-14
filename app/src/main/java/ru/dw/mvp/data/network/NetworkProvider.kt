@@ -1,4 +1,4 @@
-package ru.dw.mvp.core.network
+package ru.dw.mvp.data.network
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

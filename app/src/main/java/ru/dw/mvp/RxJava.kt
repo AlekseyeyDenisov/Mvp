@@ -6,27 +6,43 @@ import io.reactivex.rxjava3.schedulers.TestScheduler
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+private var i: Int = 0
+
+
+private tailrec fun calculateSum(value: Int): Int {
+    return if (value == 10) {
+        println("sum: $value i: $i")
+        value
+    } else {
+        i++
+        //println("sum: $value i: ${i}")
+        calculateSum(1 + value)
+    }
+}
 
 fun main() {
-    val subscribeByDefault = Observable.just("Jonny-1", "Yuri-2", "Anton-3")
+     //calculateSum(5)
+     calculateSum(15)
+
+}
+
+
+private fun rx() {
+    //val subscribeByDefault = Observable.just("Jonny-1", "Yuri-2", "Anton-3")
     //exampleFlatMap(subscribeByDefault)
     //exampleSwitchMap(subscribeByDefault)
-    switchMap(subscribeByDefault)
-
-
-
+    //switchMap(subscribeByDefault)
 }
 
 fun switchMap(subscribeByDefault: Observable<String>) {
     val scheduler = TestScheduler()
     subscribeByDefault.switchMap { s ->
-            val delay = Random().nextInt(10)
-            Observable.just<String>(s.toString() + "x")
-                .delay(delay.toLong(), TimeUnit.SECONDS, scheduler)
-        }.subscribe { println(it) }
+        val delay = Random().nextInt(10)
+        Observable.just<String>(s.toString() + "x")
+            .delay(delay.toLong(), TimeUnit.SECONDS, scheduler)
+    }.subscribe { println(it) }
     scheduler.advanceTimeBy(1, TimeUnit.MINUTES)
 }
-
 
 private fun exampleSwitchMap(subscribeByDefault: Observable<String>) {
     val scheduler = TestScheduler()

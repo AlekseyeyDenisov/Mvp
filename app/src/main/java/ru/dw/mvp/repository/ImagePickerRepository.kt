@@ -1,4 +1,4 @@
-package ru.dw.mvp.model
+package ru.dw.mvp.repository
 
 import io.reactivex.rxjava3.core.Completable
 

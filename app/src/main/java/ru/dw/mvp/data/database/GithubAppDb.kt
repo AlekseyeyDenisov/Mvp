@@ -1,18 +1,23 @@
-package ru.dw.mvp.core.database
+package ru.dw.mvp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ru.dw.mvp.data.database.`object`.RepoDBObject
+import ru.dw.mvp.data.database.`object`.UserDBObject
 
-@Database(entities = [DataBaseDao::class], version = 1, exportSchema = false)
+@Database(
+    entities = [UserDBObject::class,RepoDBObject::class],
+    version = 1,
+    exportSchema = false)
 abstract class GithubAppDb:RoomDatabase()  {
 
-    abstract fun dataBaseDao() :DataBaseDao
+    abstract fun dataBaseDao() :UserDAO
 
     companion object {
         private var db: GithubAppDb? = null
-        private const val DB_MAME = "track_db"
+        private const val DB_MAME = "git_db"
         private val LOCK = Any()
 
         fun getInstance(context: Context): GithubAppDb {
