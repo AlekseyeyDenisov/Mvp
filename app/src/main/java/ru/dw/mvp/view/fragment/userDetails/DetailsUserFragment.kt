@@ -1,9 +1,11 @@
 package ru.dw.mvp.view.fragment.userDetails
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import moxy.MvpAppCompatFragment
@@ -35,10 +37,7 @@ class DetailsUserFragment :
 
     private val presenter: DetailsPresenter by moxyPresenter {
         DetailsPresenter(
-            GithubRepositoryImpl(
-                NetworkProvider.usersApi,
-                MyApp.instance.database.dataBaseDao()
-            ),
+            MyApp.instance.githubRepositoryImpl,
             MyApp.instance.router
         )
     }
@@ -54,12 +53,20 @@ class DetailsUserFragment :
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
-        arguments?.getParcelable<GithubUser>(BUNDLE_DETAILS)?.let {
-            presenter.loadForks(it.login)
-            showUserData(it)
+        if (Build.VERSION.SDK_INT >= 33) {
+            arguments?.getParcelable(BUNDLE_DETAILS,GithubUser::class.java)?.let {
+                presenter.loadForks(it.login)
+                showUserData(it)
+            }
+        }else {
+            arguments?.getParcelable<GithubUser>(BUNDLE_DETAILS)?.let {
+                presenter.loadForks(it.login)
+                showUserData(it)
+            }
         }
 
     }

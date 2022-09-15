@@ -1,8 +1,8 @@
 package ru.dw.mvp.repository.impl
 
 
+import android.util.Log
 import io.reactivex.rxjava3.core.Single
-import ru.dw.mvp.MyApp
 import ru.dw.mvp.core.mapper.ReposMapper
 import ru.dw.mvp.core.mapper.UserMapper
 import ru.dw.mvp.core.utils.doCompletableIf
@@ -14,20 +14,19 @@ import ru.dw.mvp.repository.GithubRepository
 
 class GithubRepositoryImpl constructor(
     private val usersApi: UsersApi,
-    private val userDao: UserDAO
+    private val userDao: UserDAO,
+    private val networkStatus: Boolean
 
 ) : GithubRepository {
 
-    override fun getUsers(): Single<List<GithubUser>> {
-        // MediaStore.Images.Media.insertImage() /
-        return MyApp.connectivityListener.statusSingle().flatMap { hasConnection ->
-            if (hasConnection) {
-                fetchFromApi(true)
-            } else {
-                getFromDb()
-            }
-        }
 
+    override fun getUsers(): Single<List<GithubUser>> {
+        Log.d("@@@", "getUsers networkStatus: $networkStatus")
+        return if (networkStatus) {
+            fetchFromApi(true)
+        } else {
+            getFromDb()
+        }
     }
 
 

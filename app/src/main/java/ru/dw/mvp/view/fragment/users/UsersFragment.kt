@@ -32,12 +32,10 @@ class UsersFragment : MvpAppCompatFragment(),
         fun newInstance() = UsersFragment()
 
     }
+
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubRepositoryImpl(
-                NetworkProvider.usersApi,
-                MyApp.instance.database.dataBaseDao()
-            ),
+            MyApp.instance.githubRepositoryImpl,
             MyApp.instance.router
         )
     }
