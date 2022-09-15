@@ -8,16 +8,16 @@ import moxy.MvpAppCompatFragment
 import moxy.MvpView
 import moxy.ktx.moxyPresenter
 import ru.dw.mvp.MyApp
-import ru.dw.mvp.core.OnBackPressedListener
+import ru.dw.mvp.presenter.OnBackPressedListener
 import ru.dw.mvp.databinding.FragmentForkDetailsBinding
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.presenter.DetailsForkPresenter
 
 
 class DetailsForkFragment :
     MvpAppCompatFragment(),
     MvpView,
-    OnBackPressedListener{
+    OnBackPressedListener {
 
     private var _binding: FragmentForkDetailsBinding? = null
     private val binding
@@ -41,8 +41,8 @@ class DetailsForkFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getParcelable<GithubReposUser>(BUNDLE_DETAILS_FORK)?.let {
-            binding.fokSize.text = it.forksCount.toString()
+        arguments?.getParcelable<GithubRepo>(BUNDLE_DETAILS_FORK)?.let {
+            binding.fokSize.text = it.forks.toString()
         }
 
     }
@@ -51,14 +51,14 @@ class DetailsForkFragment :
     companion object {
 
         private const val BUNDLE_DETAILS_FORK = "BUNDLE_DETAILS_FORK"
-        private fun bundleDetails(githubReposUser: GithubReposUser): Bundle {
+        private fun bundleDetails(githubRepo: GithubRepo): Bundle {
             return Bundle().apply {
-                putParcelable(BUNDLE_DETAILS_FORK, githubReposUser)
+                putParcelable(BUNDLE_DETAILS_FORK, githubRepo)
             }
         }
 
         @JvmStatic
-        fun newInstance(githubForkUser: GithubReposUser) =
+        fun newInstance(githubForkUser: GithubRepo) =
             DetailsForkFragment().apply {
                 arguments = bundleDetails(githubForkUser)
             }

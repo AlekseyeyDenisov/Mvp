@@ -1,16 +1,16 @@
-package ru.dw.mvp.presenter
+package ru.dw.mvp.view.fragment.users
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.dw.mvp.core.nav.UserDetailsScreen
 import ru.dw.mvp.core.utils.subscribeByDefault
-import ru.dw.mvp.model.GitHupRepository
+import ru.dw.mvp.repository.GithubRepository
 import ru.dw.mvp.model.entity.GithubUser
 import ru.dw.mvp.view.fragment.users.UsersView
 
 class UsersPresenter(
-    private val repository: GitHupRepository,
+    private val repository: GithubRepository,
     private val router: Router
 
 ) : MvpPresenter<UsersView>() {
@@ -18,7 +18,7 @@ class UsersPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        repository.getUser()
+        repository.getUsers()
             .subscribeByDefault()
             .subscribe(
                 {

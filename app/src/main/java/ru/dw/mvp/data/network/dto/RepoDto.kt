@@ -1,9 +1,9 @@
-package ru.dw.mvp.core.network.dto
+package ru.dw.mvp.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ReposDto (
+data class RepoDto (
     @Expose
     @SerializedName("id")
     val id: Long,
@@ -12,5 +12,5 @@ data class ReposDto (
     val name: String,
     @Expose
     @SerializedName("forks_count")
-    val forksCount: Int
+    val forks: Int
 )

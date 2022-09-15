@@ -1,4 +1,4 @@
-package ru.dw.mvp.core.network.dto
+package ru.dw.mvp.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

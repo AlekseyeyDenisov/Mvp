@@ -1,4 +1,4 @@
-package ru.dw.mvp.presenter
+package ru.dw.mvp.view.fragment.userDetails
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
@@ -7,12 +7,12 @@ import moxy.MvpPresenter
 import ru.dw.mvp.core.nav.UserDetailsForkScreen
 import ru.dw.mvp.core.utils.disposeBy
 import ru.dw.mvp.core.utils.subscribeByDefault
-import ru.dw.mvp.model.GitHupRepository
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.repository.GithubRepository
+import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.view.fragment.userDetails.DetailsView
 
 class DetailsPresenter(
-    private val repository: GitHupRepository,
+    private val repository: GithubRepository,
     private val router: Router
 ) : MvpPresenter<DetailsView>() {
 
@@ -21,7 +21,7 @@ class DetailsPresenter(
 
     fun loadForks(login: String) {
         viewState.showLoading()
-        repository.getForkByLogin(login)
+        repository.getReposByLogin(login)
             .subscribeByDefault()
             .subscribe(
                 {
@@ -34,8 +34,8 @@ class DetailsPresenter(
             ).disposeBy(bag)
 
     }
-    fun showDetailsFork(githubReposUser: GithubReposUser) {
-        router.navigateTo(UserDetailsForkScreen(githubReposUser))
+    fun showDetailsFork(githubRepo: GithubRepo) {
+        router.navigateTo(UserDetailsForkScreen(githubRepo))
     }
 
     fun onBackPressed(): Boolean {

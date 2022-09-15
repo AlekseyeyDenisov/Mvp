@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.dw.mvp.databinding.ItemForkBinding
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.model.entity.GithubRepo
 
 class ForkDetailsAdapter( private val onItemClickForkListener: OnItemClickForkListener) :
     RecyclerView.Adapter<ForkDetailsAdapter.GithubForkViewHolder>() {
 
-    var forks: List<GithubReposUser> = emptyList()
+    var forks: List<GithubRepo> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -35,7 +35,7 @@ class ForkDetailsAdapter( private val onItemClickForkListener: OnItemClickForkLi
         RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(item: GithubReposUser) = with(binding) {
+        fun bind(item: GithubRepo) = with(binding) {
             tvNameFork.text = item.name
             root.setOnClickListener {
                 onItemClickForkListener.onItemClick(item)

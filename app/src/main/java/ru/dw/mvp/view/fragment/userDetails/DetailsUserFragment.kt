@@ -1,24 +1,25 @@
 package ru.dw.mvp.view.fragment.userDetails
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import moxy.MvpAppCompatFragment
 import moxy.MvpView
 import moxy.ktx.moxyPresenter
 import ru.dw.mvp.MyApp
-import ru.dw.mvp.core.OnBackPressedListener
-import ru.dw.mvp.core.network.NetworkProvider
 import ru.dw.mvp.core.utils.makeGone
 import ru.dw.mvp.core.utils.makeVisible
+import ru.dw.mvp.data.network.NetworkProvider
 import ru.dw.mvp.databinding.FragmentUserDetailsBinding
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.model.entity.GithubUser
-import ru.dw.mvp.presenter.DetailsPresenter
-import ru.dw.mvp.repository.GithubRepositoryImpl
+import ru.dw.mvp.presenter.OnBackPressedListener
+import ru.dw.mvp.repository.impl.GithubRepositoryImpl
 import ru.dw.mvp.view.fragment.userDetails.recycler.ForkDetailsAdapter
 import ru.dw.mvp.view.fragment.userDetails.recycler.OnItemClickForkListener
 
@@ -36,7 +37,7 @@ class DetailsUserFragment :
 
     private val presenter: DetailsPresenter by moxyPresenter {
         DetailsPresenter(
-            GithubRepositoryImpl(NetworkProvider.usersApi),
+            MyApp.instance.githubRepositoryImpl,
             MyApp.instance.router
         )
     }
@@ -52,12 +53,20 @@ class DetailsUserFragment :
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
-        arguments?.getParcelable<GithubUser>(BUNDLE_DETAILS)?.let {
-            presenter.loadForks(it.login)
-            showUserData(it)
+        if (Build.VERSION.SDK_INT >= 33) {
+            arguments?.getParcelable(BUNDLE_DETAILS,GithubUser::class.java)?.let {
+                presenter.loadForks(it.login)
+                showUserData(it)
+            }
+        }else {
+            arguments?.getParcelable<GithubUser>(BUNDLE_DETAILS)?.let {
+                presenter.loadForks(it.login)
+                showUserData(it)
+            }
         }
 
     }
@@ -69,7 +78,7 @@ class DetailsUserFragment :
         }
     }
 
-    private fun showUserData(githubUser: GithubUser){
+    private fun showUserData(githubUser: GithubUser) {
         binding.ivUserAvatar.load(githubUser.avatarUrl)
         binding.userLogin.text = githubUser.login
     }
@@ -94,9 +103,8 @@ class DetailsUserFragment :
     override fun onBackPressed(): Boolean = presenter.onBackPressed()
 
 
-
-    override fun show(githubReposUser: List<GithubReposUser>) {
-        forkAdapter.forks = githubReposUser
+    override fun show(githubRepo: List<GithubRepo>) {
+        forkAdapter.forks = githubRepo
     }
 
     override fun showLoading() {
@@ -108,7 +116,7 @@ class DetailsUserFragment :
         binding.progressBar.makeGone()
     }
 
-    override fun onItemClick(githubForkUser: GithubReposUser) {
+    override fun onItemClick(githubForkUser: GithubRepo) {
         presenter.showDetailsFork(githubForkUser)
     }
 }

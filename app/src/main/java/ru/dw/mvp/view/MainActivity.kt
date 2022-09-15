@@ -6,7 +6,7 @@ import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.dw.mvp.MyApp
 import ru.dw.mvp.R
-import ru.dw.mvp.core.OnBackPressedListener
+import ru.dw.mvp.presenter.OnBackPressedListener
 import ru.dw.mvp.databinding.ActivityMainBinding
 import ru.dw.mvp.presenter.MainPresenter
 
