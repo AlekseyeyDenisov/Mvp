@@ -1,28 +1,38 @@
 package ru.dw.mvp.repository.impl
 
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import ru.dw.mvp.core.mapper.ReposMapper
 import ru.dw.mvp.core.mapper.UserMapper
+import ru.dw.mvp.core.utils.ConnectivityListener
 import ru.dw.mvp.core.utils.doCompletableIf
-import ru.dw.mvp.data.database.UserDAO
-import ru.dw.mvp.data.network.UsersApi
+import ru.dw.mvp.data.database.GithubAppDb
+import ru.dw.mvp.data.network.NetworkProvider
 import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.model.entity.GithubUser
 import ru.dw.mvp.repository.GithubRepository
+import javax.inject.Inject
 
-class GithubRepositoryImpl constructor(
-    private val usersApi: UsersApi,
-    private val userDao: UserDAO,
-    private val networkStatus: Boolean
+class GithubRepositoryImpl @Inject constructor(
+    private val networkProvider: NetworkProvider,
+    private val githubAppDb: GithubAppDb,
+    private val userMapper: UserMapper,
+    private val reposMapper: ReposMapper,
+    private val application: Application
 
 ) : GithubRepository {
 
 
+
+
     override fun getUsers(): Single<List<GithubUser>> {
-        Log.d("@@@", "getUsers networkStatus: $networkStatus")
-        return if (networkStatus) {
+        val networkStatus = ConnectivityListener(application. applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        Log.d("@@@", "getUsers networkStatus: ${networkStatus.isOnline(application)}")
+        return if (networkStatus.isOnline(application)) {
             fetchFromApi(true)
         } else {
             getFromDb()
@@ -31,38 +41,38 @@ class GithubRepositoryImpl constructor(
 
 
     private fun fetchFromApi(shouldPersist: Boolean): Single<List<GithubUser>> {
-        return usersApi.getAllUsers()
+        return networkProvider.usersApi.getAllUsers()
             .doCompletableIf(shouldPersist) {
-                userDao.insertAll(
-                    it.map(UserMapper::mapToDBObject)
+                githubAppDb.dataBaseDao().insertAll(
+                    it.map(userMapper::mapToDBObject)
                 )
             }
             .map {
-                it.map(UserMapper::mapToEntity)
+                it.map(userMapper::mapToEntity)
             }
 
     }
 
     private fun getFromDb(): Single<List<GithubUser>> {
-        return userDao.queryForAllUsers().map { it.map(UserMapper::mapToEntity) }
+        return githubAppDb.dataBaseDao().queryForAllUsers().map { it.map(userMapper::mapToEntity) }
     }
 
     override fun getUserWithRepos(login: String): Single<GithubUser> {
-        return userDao.getUserWithRepos(login)
+        return githubAppDb.dataBaseDao().getUserWithRepos(login)
             .map { userWithRepos ->
-                val user = UserMapper.mapToEntity(userWithRepos.userDBObject)
-                user.repos = userWithRepos.repos.map { ReposMapper.map(it) }
+                val user = userMapper.mapToEntity(userWithRepos.userDBObject)
+                user.repos = userWithRepos.repos.map { reposMapper.map(it) }
                 user
             }
     }
 
     override fun getUserById(login: String): Single<GithubUser> {
-        return usersApi.getUser(login)
-            .map(UserMapper::mapToEntity)
+        return networkProvider.usersApi.getUser(login)
+            .map(userMapper::mapToEntity)
     }
 
     override fun getReposByLogin(login: String): Single<List<GithubRepo>> {
-        return usersApi.getRepos(login)
-            .map { it.map(ReposMapper::map) }
+        return networkProvider.usersApi.getRepos(login)
+            .map { it.map(reposMapper::map) }
     }
 }

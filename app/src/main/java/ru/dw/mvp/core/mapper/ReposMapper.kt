@@ -3,9 +3,10 @@ package ru.dw.mvp.core.mapper
 import ru.dw.mvp.data.database.`object`.RepoDBObject
 import ru.dw.mvp.data.network.dto.RepoDto
 import ru.dw.mvp.model.entity.GithubRepo
+import javax.inject.Inject
 
 
-object ReposMapper {
+class ReposMapper @Inject constructor() {
 
     fun map(repoDto: RepoDto): GithubRepo {
         return GithubRepo(

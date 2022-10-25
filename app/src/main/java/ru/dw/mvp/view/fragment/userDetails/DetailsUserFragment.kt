@@ -1,5 +1,6 @@
 package ru.dw.mvp.view.fragment.userDetails
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ import ru.dw.mvp.presenter.OnBackPressedListener
 import ru.dw.mvp.repository.impl.GithubRepositoryImpl
 import ru.dw.mvp.view.fragment.userDetails.recycler.ForkDetailsAdapter
 import ru.dw.mvp.view.fragment.userDetails.recycler.OnItemClickForkListener
+import javax.inject.Inject
 
 
 class DetailsUserFragment :
@@ -35,14 +37,19 @@ class DetailsUserFragment :
     private val binding
         get() = _binding ?: throw RuntimeException("FragmentUserDetailsBinding = null ")
 
-    private val presenter: DetailsPresenter by moxyPresenter {
-        DetailsPresenter(
-            MyApp.instance.githubRepositoryImpl,
-            MyApp.instance.router
-        )
-    }
+    @Inject
+    lateinit var  presenter: DetailsPresenter
 
     private val forkAdapter = ForkDetailsAdapter(this)
+
+    private val component by lazy {
+        (requireActivity().application as MyApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
 
     override fun onCreateView(

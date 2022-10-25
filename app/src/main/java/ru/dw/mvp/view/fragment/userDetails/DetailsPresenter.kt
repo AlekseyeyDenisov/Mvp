@@ -10,8 +10,9 @@ import ru.dw.mvp.core.utils.subscribeByDefault
 import ru.dw.mvp.repository.GithubRepository
 import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.view.fragment.userDetails.DetailsView
+import javax.inject.Inject
 
-class DetailsPresenter(
+class DetailsPresenter @Inject constructor(
     private val repository: GithubRepository,
     private val router: Router
 ) : MvpPresenter<DetailsView>() {

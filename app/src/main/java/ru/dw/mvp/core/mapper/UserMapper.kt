@@ -3,8 +3,9 @@ package ru.dw.mvp.core.mapper
 import ru.dw.mvp.data.database.`object`.UserDBObject
 import ru.dw.mvp.data.network.dto.UserDto
 import ru.dw.mvp.model.entity.GithubUser
+import javax.inject.Inject
 
-object UserMapper {
+class UserMapper @Inject constructor() {
 
     fun mapToEntity(dto: UserDto): GithubUser {
         return GithubUser(

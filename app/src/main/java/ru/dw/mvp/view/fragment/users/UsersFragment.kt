@@ -20,6 +20,7 @@ import ru.dw.mvp.presenter.OnBackPressedListener
 import ru.dw.mvp.repository.impl.GithubRepositoryImpl
 import ru.dw.mvp.view.fragment.users.recycler.OnItemClickUserListener
 import ru.dw.mvp.view.fragment.users.recycler.UserAdapter
+import javax.inject.Inject
 
 
 class UsersFragment : MvpAppCompatFragment(),
@@ -33,12 +34,11 @@ class UsersFragment : MvpAppCompatFragment(),
 
     }
 
-    private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
-            MyApp.instance.githubRepositoryImpl,
-            MyApp.instance.router
-        )
-    }
+    @Inject
+    lateinit var presenter: UsersPresenter
+
+
+
 
     private var _binding: FragmentUsersListBinding? = null
     private val binding
@@ -46,13 +46,20 @@ class UsersFragment : MvpAppCompatFragment(),
 
     private val userAdapter = UserAdapter(this)
 
+    private val component by lazy {
+        (requireActivity().application as MyApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUsersListBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 

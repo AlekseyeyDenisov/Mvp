@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.PublishSubject
 
-class ConnectivityListener(private val connectivityManager: ConnectivityManager) {
+class ConnectivityListener (private val connectivityManager: ConnectivityManager) {
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager =

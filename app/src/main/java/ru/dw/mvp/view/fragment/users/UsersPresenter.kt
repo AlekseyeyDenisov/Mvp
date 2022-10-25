@@ -7,9 +7,10 @@ import ru.dw.mvp.core.nav.UserDetailsScreen
 import ru.dw.mvp.core.utils.subscribeByDefault
 import ru.dw.mvp.repository.GithubRepository
 import ru.dw.mvp.model.entity.GithubUser
-import ru.dw.mvp.view.fragment.users.UsersView
+import javax.inject.Inject
 
-class UsersPresenter(
+
+class UsersPresenter @Inject constructor (
     private val repository: GithubRepository,
     private val router: Router
 
