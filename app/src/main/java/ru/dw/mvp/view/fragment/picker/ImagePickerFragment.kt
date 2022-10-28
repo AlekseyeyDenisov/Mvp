@@ -18,8 +18,7 @@ import moxy.MvpView
 import moxy.ktx.moxyPresenter
 import ru.dw.mvp.R
 import ru.dw.mvp.databinding.FragmentImagePickerBinding
-import ru.dw.mvp.presenter.ImagePickerPresenter
-import ru.dw.mvp.repository.PickerRepositoryImpl
+import ru.dw.mvp.repository.impl.PickerRepositoryImpl
 
 
 class ImagePickerFragment :

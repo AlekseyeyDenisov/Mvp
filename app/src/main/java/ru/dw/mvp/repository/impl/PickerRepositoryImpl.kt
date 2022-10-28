@@ -1,4 +1,4 @@
-package ru.dw.mvp.repository
+package ru.dw.mvp.repository.impl
 
 import android.content.ContentValues
 import android.graphics.Bitmap
@@ -10,7 +10,7 @@ import android.provider.MediaStore
 import android.util.Log
 import io.reactivex.rxjava3.core.Completable
 import ru.dw.mvp.MyApp
-import ru.dw.mvp.model.ImagePickerRepository
+import ru.dw.mvp.repository.ImagePickerRepository
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream

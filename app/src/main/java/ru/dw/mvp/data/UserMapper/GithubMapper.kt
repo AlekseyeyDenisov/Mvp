@@ -1,8 +1,8 @@
-package ru.dw.mvp.core.UserMapper
+package ru.dw.mvp.data.UserMapper
 
-import ru.dw.mvp.core.network.dto.ReposDto
-import ru.dw.mvp.core.network.dto.UserDto
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.data.network.dto.RepoDto
+import ru.dw.mvp.data.network.dto.UserDto
+import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.model.entity.GithubUser
 
 object GithubMapper {
@@ -14,11 +14,11 @@ object GithubMapper {
         )
     }
 
-    fun mapReposDtoToEntity(dto: ReposDto): GithubReposUser {
-        return GithubReposUser(
+    fun mapReposDtoToEntity(dto: RepoDto): GithubRepo {
+        return GithubRepo(
             id = dto.id,
             name = dto.name,
-            forksCount = dto.forksCount
+            forks = dto.forks
 
         )
     }

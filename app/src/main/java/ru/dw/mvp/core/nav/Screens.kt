@@ -3,7 +3,7 @@ package ru.dw.mvp.core.nav
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.dw.mvp.model.entity.GithubReposUser
+import ru.dw.mvp.model.entity.GithubRepo
 import ru.dw.mvp.model.entity.GithubUser
 import ru.dw.mvp.view.fragment.detailsfork.DetailsForkFragment
 import ru.dw.mvp.view.fragment.picker.ImagePickerFragment
@@ -11,7 +11,6 @@ import ru.dw.mvp.view.fragment.userDetails.DetailsUserFragment
 import ru.dw.mvp.view.fragment.users.UsersFragment
 
 object UsersScreen : FragmentScreen {
-
     override fun createFragment(factory: FragmentFactory): Fragment {
         return UsersFragment.newInstance()
     }
@@ -23,9 +22,9 @@ data class UserDetailsScreen(private val githubUser: GithubUser) : FragmentScree
     }
 }
 
-data class UserDetailsForkScreen(private val githubReposUser: GithubReposUser) : FragmentScreen {
+data class UserDetailsForkScreen(private val githubRepo: GithubRepo) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
-        return DetailsForkFragment.newInstance(githubReposUser)
+        return DetailsForkFragment.newInstance(githubRepo)
     }
 }
 
